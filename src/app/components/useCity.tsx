@@ -11,14 +11,18 @@ export const useCity = ({
   const [temperature, setTemperature] = useState<string>("");
   const [sunriseTime, setSunriseTime] = useState<number>(0);
   const [sunsetTime, setSunsetTime] = useState<number>(0);
-  const OPEN_WEATHER_API_KEY = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY;
 
   // fetch weather API
   useEffect(() => {
     const fetchWeather = async () => {
       const rest = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${coordinate.lat}&lon=${coordinate.lon}&appid=${OPEN_WEATHER_API_KEY}&units=metric`
+        `/api/weather?lat=${coordinate.lat}&lon=${coordinate.lon}`
       );
+
+      if (!rest.ok) {
+        throw new Error("Failed to fetch weather");
+      }
+
       const data = await rest.json();
       const icon_code = data["weather"]?.[0]?.["icon"];
       const weather = data["weather"]?.[0]?.["id"];
@@ -38,7 +42,7 @@ export const useCity = ({
     fetchWeather();
     const interval = setInterval(fetchWeather, 3600000);
     return () => clearInterval(interval);
-  }, [coordinate.lat, coordinate.lon, OPEN_WEATHER_API_KEY]);
+  }, [coordinate.lat, coordinate.lon]);
 
   // set time
   useEffect(() => {

@@ -5,10 +5,8 @@ import { useGeolocation } from "./components/useGeolocation";
 export default function Home() {
   const seoulCoordinate = useGeolocation("Seoul");
   const lilleCoordinate = useGeolocation("Lille");
-  const bsasCoordinate = useGeolocation("BuenosAires");
-  const laCoordinate = useGeolocation("LA");
-
-  console.log(laCoordinate);
+  // const bsasCoordinate = useGeolocation("BuenosAires");
+  // const laCoordinate = useGeolocation("LA");
 
   return (
     <div className="flex h-screen">
