@@ -1,4 +1,9 @@
-export type TUseCityProps = {
+export type TUseCityInput = {
+  timeZone: string;
+  coordinate: TCoordinate;
+};
+
+export type TUseCityReturn = {
   backgroundColor: string;
   animationWeather: "none" | "rainy" | "snowy";
   time: string;
@@ -13,8 +18,12 @@ export type TCoordinate = {
   lon: number;
 };
 
-export type TCityProps = {
+export type TCityInput = {
   cityName: string;
   timeZone: string;
   coordinate: TCoordinate;
 };
+
+export type TGeolocationInput = string;
+
+export type TGeolocationReturn = TCoordinate | null;

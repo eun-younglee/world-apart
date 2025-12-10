@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
-import type { TCoordinate } from "./types";
+import type {
+  TCoordinate,
+  TGeolocationInput,
+  TGeolocationReturn,
+} from "./types";
 
-export const useGeolocation = (cityName: string): TCoordinate | null => {
+export const useGeolocation = (
+  cityName: TGeolocationInput
+): TGeolocationReturn => {
   const [coordinate, setCoordinate] = useState<TCoordinate | null>(null);
   const OPEN_WEATHER_API_KEY = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY;
 

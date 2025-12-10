@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
-import type { TUseCityProps, TCoordinate } from "./types";
+import type { TUseCityInput, TUseCityReturn } from "./types";
 
-export const useCity = (
-  timeZone: string,
-  coordinate: TCoordinate
-): TUseCityProps => {
+export const useCity = ({
+  timeZone,
+  coordinate,
+}: TUseCityInput): TUseCityReturn => {
   const [time, setTime] = useState<string>("");
-  const [weather, setWeather] = useState<Number>(0);
+  const [weather, setWeather] = useState<number>(0);
   const [weatherIcon, setWeatherIcon] = useState<string>("");
   const [temperature, setTemperature] = useState<string>("");
+  const [sunriseTime, setSunriseTime] = useState<number>(0);
+  const [sunsetTime, setSunsetTime] = useState<number>(0);
   const OPEN_WEATHER_API_KEY = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY;
 
   // fetch weather API
@@ -21,12 +23,17 @@ export const useCity = (
       const icon_code = data["weather"]?.[0]?.["icon"];
       const weather = data["weather"]?.[0]?.["id"];
       const temperature = data["main"]?.["temp"];
+      const sunriseTime = data["sys"]?.["sunrise"];
+      const sunsetTime = data["sys"]?.["sunset"];
+
       setWeather(weather);
       setTemperature(temperature);
       if (icon_code) {
         const iconUrl = `https://openweathermap.org/img/wn/${icon_code}@2x.png`;
         setWeatherIcon(iconUrl);
       }
+      setSunriseTime(sunriseTime);
+      setSunsetTime(sunsetTime);
     };
     fetchWeather();
     const interval = setInterval(fetchWeather, 3600000);
@@ -51,10 +58,6 @@ export const useCity = (
   const hour = parseInt(time);
   const period = time.slice(-2);
 
-  const isDayTime =
-    (period === "AM" && hour >= 7 && hour !== 12) ||
-    (period === "PM" && (hour === 12 || hour <= 6));
-
   // greetings
   let greeting_letter = "";
   if (period === "AM" && hour >= 6 && hour < 12) {
@@ -65,11 +68,17 @@ export const useCity = (
     greeting_letter = "Good evening";
   }
 
+  // Calculate if it's daytime based on sunrise/sunset
+  const now = new Date();
+  const sunrise = new Date(sunriseTime * 1000);
+  const sunset = new Date(sunsetTime * 1000);
+  const isDayTime = now >= sunrise && now < sunset;
+
   // background color
   const backgroundColor = isDayTime
     ? weather === 800 || weather == 801
       ? "bg-blue-100"
-      : "bg-gray-400"
+      : "bg-gray-400/70"
     : "bg-black";
 
   // Map weather condition codes to animation types

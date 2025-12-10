@@ -6,6 +6,9 @@ export default function Home() {
   const seoulCoordinate = useGeolocation("Seoul");
   const lilleCoordinate = useGeolocation("Lille");
   const bsasCoordinate = useGeolocation("BuenosAires");
+  const laCoordinate = useGeolocation("LA");
+
+  console.log(laCoordinate);
 
   return (
     <div className="flex h-screen">
@@ -28,6 +31,13 @@ export default function Home() {
           cityName="Buenos Aires"
           timeZone="America/Buenos_Aires"
           coordinate={bsasCoordinate}
+        />
+      )} */}
+      {/* {laCoordinate && (
+        <City
+          cityName="Los Angeles"
+          timeZone="America/Los_Angeles"
+          coordinate={laCoordinate}
         />
       )} */}
     </div>

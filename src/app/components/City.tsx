@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import { TCityProps } from "./types";
+import { TCityInput } from "./types";
 import { useCity } from "./useCity";
 import Snowfall from "react-snowfall";
 import { Rain } from "react-rainfall";
 
-const City = ({ cityName, timeZone, coordinate }: TCityProps) => {
+const City = ({ cityName, timeZone, coordinate }: TCityInput) => {
   const {
     time,
     backgroundColor,
@@ -12,7 +12,7 @@ const City = ({ cityName, timeZone, coordinate }: TCityProps) => {
     greeting_letter,
     animationWeather,
     temperature,
-  } = useCity(timeZone, coordinate);
+  } = useCity({ timeZone, coordinate });
 
   return (
     <div
@@ -39,8 +39,8 @@ const City = ({ cityName, timeZone, coordinate }: TCityProps) => {
               "bg-linear-to-r bg-clip-text text-transparent",
               "animate-pulse-slow",
               backgroundColor === "bg-blue-100"
-                ? "from-gray-700 via-gray-900 to-gray-700"
-                : "from-white via-gray-100 to-white drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)]"
+                ? "from-blue-600 to-purple-700"
+                : "from-purple-400 via-white to-blue-400"
             )}
           >
             {greeting_letter}
@@ -50,11 +50,9 @@ const City = ({ cityName, timeZone, coordinate }: TCityProps) => {
           <h1
             className={clsx(
               "text-6xl md:text-8xl font-black tracking-tight",
-              "bg-linear-to-br bg-clip-text text-transparent",
+              "bg-linear-to-br bg-clip-text",
               "animate-slide-up",
-              backgroundColor === "bg-blue-100"
-                ? "from-blue-600 via-blue-800 to-purple-900"
-                : "from-white via-gray-50 to-gray-200 drop-shadow-[0_4px_12px_rgba(255,255,255,0.4)]"
+              backgroundColor === "bg-blue-100" ? "text-black" : "text-white"
             )}
           >
             {cityName}
@@ -89,9 +87,11 @@ const City = ({ cityName, timeZone, coordinate }: TCityProps) => {
               <div
                 className={clsx(
                   "absolute inset-0 blur-xl opacity-50 rounded-full",
-                  backgroundColor === "bg-black"
-                    ? "bg-white/50"
-                    : "bg-yellow-300"
+                  backgroundColor === "bg-blue-100"
+                    ? "bg-yellow-300"
+                    : backgroundColor === "bg-gray-400/70"
+                    ? "bg-white"
+                    : "bg-white/50"
                 )}
               />
               <img
@@ -108,81 +108,13 @@ const City = ({ cityName, timeZone, coordinate }: TCityProps) => {
               "bg-linear-to-br bg-clip-text text-transparent",
               backgroundColor === "bg-blue-100"
                 ? "from-blue-600 to-purple-700"
-                : "from-white to-gray-600"
+                : "from-purple-400 via-white to-blue-400"
             )}
           >
             {temperature ? Math.round(Number(temperature)) : "--"} °C
           </span>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        @keyframes pulse-slow {
-          0%,
-          100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.7;
-          }
-        }
-
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out;
-        }
-
-        .animate-fade-in-delayed {
-          animation: fade-in 0.8s ease-out 0.2s backwards;
-        }
-
-        .animate-fade-in-delayed-more {
-          animation: fade-in 0.8s 0.4s backwards;
-        }
-
-        .animate-slide-up {
-          animation: slide-up 1s ease-out;
-        }
-
-        .animate-float {
-          animation: float 3s infinite;
-        }
-
-        .animate-pulse-slow {
-          animation: pulse-slow 3s infinite;
-        }
-      `}</style>
     </div>
   );
 };
