@@ -27,3 +27,5 @@ export type TCityInput = {
 export type TGeolocationInput = string;
 
 export type TGeolocationReturn = TCoordinate | null;
+
+export type TDDay = string;

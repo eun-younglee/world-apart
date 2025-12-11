@@ -40,7 +40,7 @@ export const useCity = ({
       setSunsetTime(sunsetTime);
     };
     fetchWeather();
-    const interval = setInterval(fetchWeather, 3600000);
+    const interval = setInterval(fetchWeather, 7200000);
     return () => clearInterval(interval);
   }, [coordinate.lat, coordinate.lon]);
 

@@ -46,6 +46,24 @@
       opacity: 0.7;
     }
   }
+
+  @keyframes rainbow-rotate {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    100% {
+      filter: hue-rotate(360deg);
+    }
+  }
+
+  @keyframes border-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -84,5 +102,39 @@ body {
 
   .animate-pulse-slow {
     animation: pulse-slow 3s infinite;
+  }
+
+  .rainbow-border {
+    position: relative;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.05)
+    );
+  }
+
+  .rainbow-border::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 3px;
+    background: linear-gradient(
+      90deg,
+      #ffb3ba 0%,
+      #ffdfba 14%,
+      #ffffba 28%,
+      #baffc9 42%,
+      #bae1ff 57%,
+      #d4b5f0 71%,
+      #e0b3ff 85%,
+      #ffb3ba 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: rainbow-rotate 3s linear infinite;
+    z-index: -1;
   }
 }

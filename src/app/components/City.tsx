@@ -17,7 +17,7 @@ const City = ({ cityName, timeZone, coordinate }: TCityInput) => {
   return (
     <div
       className={clsx(
-        "relative flex flex-col w-full h-screen items-center justify-center overflow-hidden transition-colors duration-700 ease-in-out",
+        "relative flex flex-col w-full h-full items-center justify-center overflow-hidden transition-colors duration-700 ease-in-out",
         backgroundColor
       )}
     >
@@ -35,7 +35,7 @@ const City = ({ cityName, timeZone, coordinate }: TCityInput) => {
         <div className="flex flex-col items-center gap-2 animate-fade-in">
           <span
             className={clsx(
-              "text-3xl font-bold tracking-[0.3em] uppercase",
+              "text-sm sm:text-3xl font-bold tracking-[0.3em] uppercase",
               "bg-linear-to-r bg-clip-text text-transparent",
               "animate-pulse-slow",
               backgroundColor === "bg-blue-100"
@@ -49,7 +49,7 @@ const City = ({ cityName, timeZone, coordinate }: TCityInput) => {
           {/* City name with gradient */}
           <h1
             className={clsx(
-              "text-6xl md:text-8xl font-black tracking-tight",
+              "text-2xl sm:text-6xl md:text-8xl font-black tracking-tight",
               "bg-linear-to-br bg-clip-text",
               "animate-slide-up",
               backgroundColor === "bg-blue-100" ? "text-black" : "text-white"
@@ -63,7 +63,7 @@ const City = ({ cityName, timeZone, coordinate }: TCityInput) => {
         <div className="relative py-4 animate-fade-in-delayed">
           <span
             className={clsx(
-              "relative text-8xl leading-none font-black tracking-tighter tabular-nums",
+              "relative text-2xl sm:text-8xl leading-none font-black tracking-tighter tabular-nums",
               backgroundColor === "bg-blue-100" ? "text-black" : "text-white"
             )}
           >
@@ -97,14 +97,14 @@ const City = ({ cityName, timeZone, coordinate }: TCityInput) => {
               <img
                 src={weatherIcon}
                 alt="weather"
-                className="relative w-20 h-20 drop-shadow-lg filter brightness-110 animate-float"
+                className="relative w-10 h-10 sm:w-20 sm:h-20 drop-shadow-lg filter brightness-110 animate-float"
               />
             </div>
           )}
 
           <span
             className={clsx(
-              "text-6xl font-black tracking-tight",
+              "text-xl sm:text-6xl font-black tracking-tight",
               "bg-linear-to-br bg-clip-text text-transparent",
               backgroundColor === "bg-blue-100"
                 ? "from-blue-600 to-purple-700"

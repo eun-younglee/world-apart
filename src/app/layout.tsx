@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Worlds-apart",
+  title: "World-apart",
 };
 
 export default function RootLayout({
